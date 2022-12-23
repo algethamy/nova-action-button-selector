@@ -4,11 +4,11 @@
       <div
         v-if="actions.length > 0"
         :dusk="`${resource.id.value}-inline-actions`"
-        class="flex gap-4 py-1"
+        class="flex gap-4 py-0 mr-4"
         >
         <template v-for="action in actions">
           <button
-              v-if="!action.showInDropdown"
+              v-if="action.showAsButton"
               :key="action.uriKey"
               :dusk="`${resource.id.value}-inline-action-${action.uriKey}`"
               @click="() => handleActionClick(action.uriKey)"
@@ -114,7 +114,7 @@
                 <!-- User Actions -->
                 <DropdownMenuItem
                   as="button"
-                  v-if="action.showInDropdown"
+                  v-if="!action.showAsButton"
                   :key="action.uriKey"
                   :dusk="`${resource.id.value}-inline-action-${action.uriKey}`"
                   @click="() => handleActionClick(action.uriKey)"

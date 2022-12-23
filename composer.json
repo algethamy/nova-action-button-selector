@@ -1,13 +1,17 @@
 {
-    "name": "lexicon/nova-action-button-selectors",
+    "name": "lednerb/nova-action-button-selectors",
     "description": "A Laravel Nova asset.",
     "keywords": [
         "laravel",
         "nova"
     ],
     "license": "MIT",
-    "homepage": "https://pitchayakit.github.io/cv",
+    "homepage": "https://lednerb.eu",
     "authors": [
+        {
+            "name": "Sascha Brendel",
+            "email": "mail@lednerb.eu"
+        },
         {
             "name": "Pitchayakit Pahamak",
             "email": "pitchayakit.p@gmail.com",
@@ -20,13 +24,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Lexicon\\ActionButtonSelector\\": "src/"
+            "Lednerb\\ActionButtonSelector\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Lexicon\\ActionButtonSelector\\AssetServiceProvider"
+                "Lednerb\\ActionButtonSelector\\AssetServiceProvider"
             ]
         }
     },

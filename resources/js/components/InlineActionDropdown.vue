@@ -1,15 +1,15 @@
 <template>
-    <div v-if="shouldShowDropdown" class="flex">
+    <div class="flex">
          <div
             v-if="actions.length > 0"
             :dusk="`${resource.id.value}-inline-actions`"
-            class="flex gap-4 py-1"
+            class="flex gap-4 mr-4"
         >
             <!-- User Actions -->
             <template v-for="action in actions">
               <button
               as="button"
-              v-if="!action.showInDropdown"
+              v-if="action.showAsButton"
               :key="action.uriKey"
               :dusk="`${resource.id.value}-inline-action-${action.uriKey}`"
               @click.stop="() => handleActionClick(action.uriKey)"
@@ -22,7 +22,7 @@
             </template>
         </div>
         
-        <Dropdown>
+        <Dropdown v-if="shouldShowDropdown">
         <span class="sr-only">{{ __('Resource Row Dropdown') }}</span>
         <DropdownTrigger
             :dusk="`${resource.id.value}-control-selector`"
@@ -34,7 +34,7 @@
         </DropdownTrigger>
 
         <template #menu>
-            <DropdownMenu width="auto" class="px-1">
+            <DropdownMenu v-if="shouldShowDropdown" width="auto" class="px-1">
             <ScrollWrap
                 :height="250"
                 class="divide-y divide-gray-100 dark:divide-gray-800 divide-solid"
@@ -85,7 +85,7 @@
                 </div>
 
                 <div
-                  v-if="actions.length > 0"
+                  v-if="amountDropdownActions > 0"
                   :dusk="`${resource.id.value}-inline-actions`"
                   class="py-1"
                 >
@@ -93,7 +93,7 @@
                   <template v-for="action in actions">
                   <DropdownMenuItem
                     as="button"
-                    v-if="action.showInDropdown"
+                    v-if="!action.showAsButton"
                     :key="action.uriKey"
                     :dusk="`${resource.id.value}-inline-action-${action.uriKey}`"
                     @click="() => handleActionClick(action.uriKey)"
@@ -180,7 +180,21 @@ export default {
     },
 
     shouldShowDropdown() {
-      return this.actions.length > 0 || this.userHasAnyOptions
+
+      console.log("Gesamt: " + this.actions.length);
+      console.log("ShowAsButton: " + this.actions.filter(action => action.showAsButton == true).length);
+
+      console.log("UserOptions: " + this.userHasAnyOptions)
+
+      return this.amountDropdownActions > 0 || this.userHasAnyOptions
+    },
+
+    amountButtonActions() {
+      return this.actions.filter(action => action.showAsButton == true).length
+    },
+
+    amountDropdownActions() {
+      return this.actions.filter(action => action.showAsButton != true).length;
     },
 
     shouldShowPreviewLink() {
