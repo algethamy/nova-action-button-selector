@@ -105,11 +105,10 @@
             </div>
 
             <div
-              v-if="actions.length > 0"
+              v-if="actions.filter(action => action.showAsButton !== true).length > 0"
               :dusk="`${resource.id.value}-inline-actions`"
               class="py-1"
             >
-
               <template v-for="action in actions">
                 <!-- User Actions -->
                 <DropdownMenuItem
